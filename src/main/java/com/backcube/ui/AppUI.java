@@ -2,15 +2,20 @@ package com.backcube.ui;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.server.VaadinRequest;
+import com.vaadin.server.VaadinServlet;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.annotation.VaadinSessionScope;
-import com.vaadin.spring.boot.annotation.EnableVaadinServlet;
-import com.vaadin.ui.Button;
 import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
-import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.PostConstruct;
+import javax.servlet.ServletContext;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 
 /**
  * Created by jimbriglio on 9/25/16.
@@ -19,18 +24,26 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/ui")
 @VaadinSessionScope
-@Theme("valo")
+@Theme("mytheme")
 public class AppUI extends UI {
 
+    @PostConstruct
+    public void init() throws IOException {
+        ServletContext servletContext=VaadinServlet.getCurrent().getServletContext();
+        Theme annotation = getUI().getClass().getAnnotation(Theme.class);
+        if (annotation != null) {
+            String root = servletContext.getRealPath("/");
+            if (root != null && Files.isDirectory(Paths.get(root))) {
+                Files.createDirectories(Paths.get(servletContext.getRealPath("/VAADIN/themes/" + annotation.value())));
+            }
+        }
+    }
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
 
-        VerticalLayout layout = new VerticalLayout();
-        Button button = new Button("Click me");
-
-        setContent(layout);
-        layout.addComponent(button);
+        Login login = new Login();
+        this.setContent(login);
 
     }
 

@@ -1,0 +1,19 @@
+
+@import "../valo/valo.scss";
+
+
+
+@mixin mytheme {
+  @include valo;
+
+  .blackColor {
+    background: black;
+  }
+
+  .loginLabel {
+    height: 40px;
+    font-weight: bolder;
+
+  }
+
+}

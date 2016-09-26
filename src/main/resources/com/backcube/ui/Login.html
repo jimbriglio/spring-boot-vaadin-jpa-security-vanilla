@@ -6,14 +6,20 @@
  </head> 
  <body> 
   <vaadin-vertical-layout size-full> 
-   <vaadin-label size-auto plain-text :middle :center>
-     Please enter your login information below: 
-   </vaadin-label> 
-   <vaadin-form-layout size-auto :center> 
-    <vaadin-label size-auto plain-text :middle>
-      Username 
+   <vaadin-panel width="30%" height="40px" :bottom :center> 
+    <vaadin-label style-name="loginLabel" size-auto plain-text>
+      Please enter your login information: 
     </vaadin-label> 
-    <vaadin-text-field :middle :right></vaadin-text-field> 
+   </vaadin-panel> 
+   <vaadin-form-layout width="221px" :center> 
+    <vaadin-label size-auto plain-text :center>
+      Username: 
+    </vaadin-label> 
+    <vaadin-text-field></vaadin-text-field> 
+    <vaadin-label size-auto plain-text>
+      Password: 
+    </vaadin-label> 
+    <vaadin-text-field></vaadin-text-field> 
    </vaadin-form-layout> 
   </vaadin-vertical-layout>  
  </body>
