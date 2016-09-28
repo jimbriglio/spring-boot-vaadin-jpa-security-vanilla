@@ -11,9 +11,17 @@
   }
 
   .loginLabel {
-    height: 40px;
-    font-weight: bolder;
+    font-style: bold;
+    font-size: 24px;
+  }
 
+  .loginBackground {
+      background: black;
+  }
+
+  .loginMainPanel {
+    border: 2px;
+    border-color: dimgray;
   }
 
 }

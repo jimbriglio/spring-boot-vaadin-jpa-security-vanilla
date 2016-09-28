@@ -5,22 +5,30 @@
   <meta charset="UTF-8" name="vaadin-version" content="7.7.0">
  </head> 
  <body> 
-  <vaadin-vertical-layout size-full> 
-   <vaadin-panel width="30%" height="40px" :bottom :center> 
-    <vaadin-label style-name="loginLabel" size-auto plain-text>
-      Please enter your login information: 
-    </vaadin-label> 
-   </vaadin-panel> 
-   <vaadin-form-layout width="221px" :center> 
-    <vaadin-label size-auto plain-text :center>
-      Username: 
-    </vaadin-label> 
-    <vaadin-text-field></vaadin-text-field> 
-    <vaadin-label size-auto plain-text>
-      Password: 
-    </vaadin-label> 
-    <vaadin-text-field></vaadin-text-field> 
-   </vaadin-form-layout> 
-  </vaadin-vertical-layout>  
+  <vaadin-absolute-layout style-name="loginBackground"> 
+   <vaadin-vertical-layout size-full> 
+    <vaadin-panel style-name="loginMainPanel" size="auto" :middle :center> 
+     <vaadin-vertical-layout size-full> 
+      <vaadin-label style-name="h2" size-auto plain-text :bottom :center>
+        Please enter your login information: 
+      </vaadin-label> 
+      <vaadin-form-layout width="222px" :center> 
+       <vaadin-label size-auto plain-text>
+         Username: 
+       </vaadin-label> 
+       <vaadin-text-field></vaadin-text-field> 
+       <vaadin-label size-auto plain-text>
+         Password: 
+       </vaadin-label> 
+       <vaadin-text-field></vaadin-text-field> 
+       <vaadin-button plain-text>
+         Login 
+       </vaadin-button> 
+       <vaadin-link caption="Forgot your username/password?" width="255px"></vaadin-link> 
+      </vaadin-form-layout> 
+     </vaadin-vertical-layout> 
+    </vaadin-panel> 
+   </vaadin-vertical-layout> 
+  </vaadin-absolute-layout>  
  </body>
 </html>

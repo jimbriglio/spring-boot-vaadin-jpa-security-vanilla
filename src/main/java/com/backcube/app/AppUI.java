@@ -1,5 +1,6 @@
-package com.backcube.ui;
+package com.backcube.app;
 
+import com.backcube.ui.Login;
 import com.vaadin.annotations.Theme;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
