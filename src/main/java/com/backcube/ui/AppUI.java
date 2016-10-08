@@ -20,11 +20,11 @@ import java.nio.file.Paths;
 /**
  * Created by jimbriglio on 9/25/16.
  */
-@SpringUI
-@RestController
-@RequestMapping("/ui")
-@VaadinSessionScope
-@Theme("mytheme")
+//@SpringUI
+//@RestController
+//@RequestMapping("/ui")
+//@VaadinSessionScope
+//@Theme("mytheme")
 public class AppUI extends UI {
 
     protected Navigator appNavigator;

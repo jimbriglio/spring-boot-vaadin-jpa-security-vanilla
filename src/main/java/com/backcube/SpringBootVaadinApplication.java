@@ -12,13 +12,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-@SpringBootApplication
+//@SpringBootApplication
 
 public class SpringBootVaadinApplication {
 
-
-	public static void main(String[] args) {
-		SpringApplication.run(SpringBootVaadinApplication.class, args);
-	}
+	String noop;
+//	public static void main(String[] args) {
+//		SpringApplication.run(SpringBootVaadinApplication.class, args);
+//	}
 
 }
