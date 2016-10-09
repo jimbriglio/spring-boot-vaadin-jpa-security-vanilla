@@ -30,6 +30,7 @@ public class ApplicationDesign extends HorizontalLayout {
     protected Button inboxButton;
     protected Button archiveButton;
     protected Button settingsButton;
+    protected Button adminButton;
     protected Button logoutButton;
     protected VerticalLayout content;
 

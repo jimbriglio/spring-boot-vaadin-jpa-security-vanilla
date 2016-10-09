@@ -3,19 +3,11 @@ package com.backcube.ui;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.ui.*;
 
-public class LoginForm extends VerticalLayout {
+public class LoginForm extends LoginView{
 
     public LoginForm(LoginCallback callback) {
-        setMargin(true);
-        setSpacing(true);
 
-        TextField username = new TextField("Username");
-        addComponent(username);
-
-        PasswordField password = new PasswordField("Password");
-        addComponent(password);
-
-        Button login = new Button("Login", evt -> {
+        login.addClickListener( evt -> {
             String pword = password.getValue();
             password.setValue("");
             if (!callback.login(username.getValue(), pword)) {
@@ -24,7 +16,7 @@ public class LoginForm extends VerticalLayout {
             }
         });
         login.setClickShortcut(ShortcutAction.KeyCode.ENTER);
-        addComponent(login);
+
     }
 
     @FunctionalInterface

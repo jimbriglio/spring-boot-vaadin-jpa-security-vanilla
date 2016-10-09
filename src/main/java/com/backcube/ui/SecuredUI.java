@@ -1,10 +1,15 @@
 package com.backcube.ui;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Timer;
-import java.util.TimerTask;
 
+import com.vaadin.server.VaadinServlet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,16 +30,18 @@ import com.vaadin.spring.navigator.SpringViewProvider;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 
+import javax.annotation.PostConstruct;
+import javax.servlet.ServletContext;
+
 @SpringUI
 // No @Push annotation, we are going to enable it programmatically when the user logs on
 @Theme(ValoTheme.THEME_NAME) // Looks nicer
 public class SecuredUI extends UI {
 
-    @Autowired
-    AuthenticationManager authenticationManager;
+    private static final Logger logger = LoggerFactory.getLogger(SecuredUI.class);
 
     @Autowired
-    BackendService backendService;
+    AuthenticationManager authenticationManager;
 
     @Autowired
     SpringViewProvider viewProvider;
@@ -46,9 +53,21 @@ public class SecuredUI extends UI {
 
     private Timer timer;
 
+    @PostConstruct
+    public void init() throws IOException {
+        ServletContext servletContext = VaadinServlet.getCurrent().getServletContext();
+        Theme annotation = getUI().getClass().getAnnotation(Theme.class);
+        if (annotation != null) {
+            String root = servletContext.getRealPath("/");
+            if (root != null && Files.isDirectory(Paths.get(root))) {
+                Files.createDirectories(Paths.get(servletContext.getRealPath("/VAADIN/themes/" + annotation.value())));
+            }
+        }
+    }
+
     @Override
     protected void init(VaadinRequest request) {
-        getPage().setTitle("Vaadin and Spring Security Demo - Hybrid Security");
+        getPage().setTitle("BackTrack");
         if (SecurityUtils.isLoggedIn()) {
             showMain();
         } else {
@@ -61,60 +80,62 @@ public class SecuredUI extends UI {
     }
 
     private void showMain() {
+
         VerticalLayout layout = new VerticalLayout();
         layout.setMargin(true);
         layout.setSpacing(true);
         layout.setSizeFull();
-
-        HorizontalLayout buttons = new HorizontalLayout();
-        buttons.setSpacing(true);
-        layout.addComponent(buttons);
-
-        buttons.addComponent(new Button("Invoke user method", event -> {
-            // This method should be accessible by both 'user' and 'admin'.
-            Notification.show(backendService.userMethod());
-        }));
-        buttons.addComponent(new Button("Navigate to user view", event -> {
-            getNavigator().navigateTo("");
-        }));
-        buttons.addComponent(new Button("Invoke admin method", event -> {
-            // This method should be accessible by 'admin' only.
-            Notification.show(backendService.adminMethod());
-        }));
-        buttons.addComponent(new Button("Navigate to admin view", event -> {
-            getNavigator().navigateTo("admin");
-        }));
-        buttons.addComponent(new Button("Logout", event -> logout()));
-        timeAndUser = new Label();
-        timeAndUser.setSizeUndefined();
-        buttons.addComponent(timeAndUser);
-        buttons.setComponentAlignment(timeAndUser, Alignment.MIDDLE_LEFT);
-
+        setContent(layout);
+//        HorizontalLayout buttons = new HorizontalLayout();
+//        buttons.setSpacing(true);
+//        layout.addComponent(buttons);
+//
+//        buttons.addComponent(new Button("Invoke user method", event -> {
+//            // This method should be accessible by both 'user' and 'admin'.
+//            Notification.show(backendService.userMethod());
+//        }));
+//        buttons.addComponent(new Button("Navigate to user view", event -> {
+//            getNavigator().navigateTo("");
+//        }));
+//        buttons.addComponent(new Button("Invoke admin method", event -> {
+//            // This method should be accessible by 'admin' only.
+//            Notification.show(backendService.adminMethod());
+//        }));
+//        buttons.addComponent(new Button("Navigate to admin view", event -> {
+//            getNavigator().navigateTo("admin");
+//        }));
+//        buttons.addComponent(new Button("Logout", event -> logout()));
+//        timeAndUser = new Label();
+//        timeAndUser.setSizeUndefined();
+//        buttons.addComponent(timeAndUser);
+//        buttons.setComponentAlignment(timeAndUser, Alignment.MIDDLE_LEFT);
+//
         Panel viewContainer = new Panel();
         viewContainer.setSizeFull();
         layout.addComponent(viewContainer);
         layout.setExpandRatio(viewContainer, 1.0f);
 
+        AppView appView = new AppView();
+        logger.info("Is Admin: "+((Boolean) SecurityUtils.hasRole("ROLE_ADMIN")).toString());
+        if (!SecurityUtils.hasRole("ROLE_ADMIN")) {
+            appView.adminButton.setVisible(false);
+        }
+
+        appView.logoutButton.addClickListener(event -> logout());
         setContent(layout);
         setErrorHandler(this::handleError);
 
         Navigator navigator = new Navigator(this, viewContainer);
         navigator.addProvider(viewProvider);
+        navigator.addProvider(appView);
         navigator.setErrorView(errorView);
         viewProvider.setAccessDeniedViewClass(AccessDeniedView.class);
-        // Fire up a timer to demonstrate server push. Do NOT use timers in real-world applications, use a thread pool.
-        timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                updateTimeAndUser();
-            }
-        }, 1000L, 1000L);
+        getNavigator().navigateTo("AppView");
+
     }
 
     @Override
     public void detach() {
-        timer.cancel();
         super.detach();
     }
 
@@ -147,6 +168,7 @@ public class SecuredUI extends UI {
     }
 
     private void logout() {
+        logger.info("Got here");
         getPage().reload();
         getSession().close();
     }
