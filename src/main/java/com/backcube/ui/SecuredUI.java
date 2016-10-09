@@ -49,10 +49,6 @@ public class SecuredUI extends UI {
     @Autowired
     ErrorView errorView;
 
-    private Label timeAndUser;
-
-    private Timer timer;
-
     @PostConstruct
     public void init() throws IOException {
         ServletContext servletContext = VaadinServlet.getCurrent().getServletContext();
@@ -120,6 +116,8 @@ public class SecuredUI extends UI {
         if (!SecurityUtils.hasRole("ROLE_ADMIN")) {
             appView.adminButton.setVisible(false);
         }
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        appView.userButton.setCaption(userName);
 
         appView.logoutButton.addClickListener(event -> logout());
         setContent(layout);
@@ -137,14 +135,6 @@ public class SecuredUI extends UI {
     @Override
     public void detach() {
         super.detach();
-    }
-
-    private void updateTimeAndUser() {
-        // Demonstrate that server push works and that you can even access the security context from within the
-        // access(...) method.
-        access(() -> timeAndUser.setValue(String.format("The server-side time is %s and the current user is %s",
-            LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")),
-            SecurityContextHolder.getContext().getAuthentication().getName())));
     }
 
     private boolean login(String username, String password) {

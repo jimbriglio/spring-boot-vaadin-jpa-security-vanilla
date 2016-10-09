@@ -1,6 +1,7 @@
-package com.backcube.ui;
+package com.backcube;
 
 import com.backcube.spring.VaadinSessionSecurityContextHolderStrategy;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration;
@@ -12,21 +13,26 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
+import javax.sql.DataSource;
+
+@SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 public class HybridSecuritySampleApplication {
 
     @Configuration
     @EnableGlobalMethodSecurity(securedEnabled = true)
     public static class SecurityConfiguration extends GlobalMethodSecurityConfiguration {
 
+        @Autowired
+        DataSource dataSource;
+
         @Override
         protected void configure(AuthenticationManagerBuilder auth) throws Exception {
             //@formatter:off
             auth
                 .inMemoryAuthentication()
-                    .withUser("admin").password("p").roles("ADMIN", "USER")
-                    .and()
-                    .withUser("user").password("p").roles("USER");
+                .withUser("admin").password("p").roles("ADMIN", "USER")
+                .and()
+                .withUser("user").password("p").roles("USER");
             //@formatter:on
         }
 
