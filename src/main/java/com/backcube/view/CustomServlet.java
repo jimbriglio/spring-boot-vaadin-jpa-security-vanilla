@@ -1,4 +1,4 @@
-package com.backcube.ui;
+package com.backcube.view;
 
 import com.vaadin.server.CustomizedSystemMessages;
 import com.vaadin.server.SystemMessagesProvider;

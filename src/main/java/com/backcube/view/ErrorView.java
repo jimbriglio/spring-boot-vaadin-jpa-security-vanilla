@@ -1,4 +1,4 @@
-package com.backcube.ui;
+package com.backcube.view;
 
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
@@ -10,17 +10,20 @@ import org.springframework.stereotype.Component;
 
 @Component // No SpringView annotation because this view can not be navigated to
 @UIScope
-public class AccessDeniedView extends VerticalLayout implements View {
+public class ErrorView extends VerticalLayout implements View {
 
-    public AccessDeniedView() {
+    private Label errorLabel;
+
+    public ErrorView() {
         setMargin(true);
-        Label lbl = new Label("You don't have access to this view.");
-        lbl.addStyleName(ValoTheme.LABEL_FAILURE);
-        lbl.setSizeUndefined();
-        addComponent(lbl);
+        errorLabel = new Label();
+        errorLabel.addStyleName(ValoTheme.LABEL_FAILURE);
+        errorLabel.setSizeUndefined();
+        addComponent(errorLabel);
     }
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
+        errorLabel.setValue(String.format("No such view: %s", event.getViewName()));
     }
 }

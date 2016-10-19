@@ -1,4 +1,4 @@
-package com.backcube.ui;
+package com.backcube.view;
 
 import com.vaadin.spring.access.ViewAccessControl;
 import com.vaadin.ui.UI;

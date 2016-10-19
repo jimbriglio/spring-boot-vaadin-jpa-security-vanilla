@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8" name="design-properties" content="{&quot;RULERS_VISIBLE&quot;:true,&quot;GUIDELINES_VISIBLE&quot;:false,&quot;SNAP_TO_OBJECTS&quot;:true,&quot;SNAP_TO_GRID&quot;:true,&quot;SNAPPING_DISTANCE&quot;:10,&quot;JAVA_SOURCES_ROOT&quot;:&quot;src/main/java&quot;,&quot;THEME&quot;:&quot;valo&quot;}">
+  <meta charset="UTF-8" name="vaadin-version" content="7.7.0">
+ </head> 
+ <body> 
+  <vaadin-vertical-layout> 
+   <vaadin-horizontal-layout style-name="adminNavBar" spacing> 
+    <vaadin-button plain-text>
+      Users 
+    </vaadin-button> 
+    <vaadin-button plain-text>
+      Tasks 
+    </vaadin-button> 
+   </vaadin-horizontal-layout> 
+   <vaadin-horizontal-layout size-full> 
+    <vaadin-form-layout size-auto margin> 
+     <vaadin-text-field caption="First Name:" _id="firstNameField"></vaadin-text-field> 
+     <vaadin-text-field caption="Last Name:" _id="lastNameField"></vaadin-text-field> 
+     <vaadin-text-field caption="Email Address:" _id="emailField"></vaadin-text-field> 
+     <vaadin-password-field caption="Password:" _id="passwordField"></vaadin-password-field> 
+     <vaadin-combo-box caption="Role:" _id="roleField"> 
+      <option>User</option> 
+      <option>Admin</option> 
+     </vaadin-combo-box> 
+     <vaadin-button plain-text _id="createUserButton">
+       Create User 
+     </vaadin-button> 
+    </vaadin-form-layout> 
+    <vaadin-table selectable> 
+     <table> 
+      <colgroup> 
+       <col property-id="Project"> 
+       <col property-id="Status"> 
+      </colgroup> 
+      <tbody> 
+       <tr item-id="1"> 
+        <td>Customer Project 1</td> 
+        <td>OK</td> 
+       </tr> 
+       <tr item-id="2"> 
+        <td>Customer Project 2</td> 
+        <td>OK</td> 
+       </tr> 
+       <tr item-id="3"> 
+        <td>Customer Project 3</td> 
+        <td>OK</td> 
+       </tr> 
+       <tr item-id="4"> 
+        <td>Customer Project 4</td> 
+        <td>OK</td> 
+       </tr> 
+       <tr item-id="5"> 
+        <td>Customer Project 5</td> 
+        <td>OK</td> 
+       </tr> 
+       <tr item-id="6"> 
+        <td>Customer Project 6</td> 
+        <td>OK</td> 
+       </tr> 
+       <tr item-id="7"> 
+        <td>Customer Project 7</td> 
+        <td>OK</td> 
+       </tr> 
+       <tr item-id="8"> 
+        <td>Customer Project 8</td> 
+        <td>OK</td> 
+       </tr> 
+       <tr item-id="9"> 
+        <td>Customer Project 9</td> 
+        <td>OK</td> 
+       </tr> 
+      </tbody> 
+     </table> 
+    </vaadin-table> 
+   </vaadin-horizontal-layout> 
+  </vaadin-vertical-layout>  
+ </body>
+</html>

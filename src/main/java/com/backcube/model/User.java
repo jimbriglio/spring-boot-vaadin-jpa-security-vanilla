@@ -16,12 +16,42 @@ public class User {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
+    @Column(name = "first_name", nullable = false, unique = false)
+    private String firstName;
+
+    @Column(name = "last_name", nullable = false, unique = false)
+    private String lastName;
+
     @Column(name = "password_hash", nullable = false)
     private String passwordHash;
 
     @Column(name = "role", nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    public User(String email, String firstName, String lastName, String passwordHash, Role role) {
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.passwordHash = passwordHash;
+        this.role = role;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
     public String getEmail() {
         return email;
@@ -55,4 +85,5 @@ public class User {
     public void setRole(Role role) {
         this.role = role;
     }
+
 }

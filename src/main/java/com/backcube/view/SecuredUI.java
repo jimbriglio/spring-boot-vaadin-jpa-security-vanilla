@@ -1,12 +1,10 @@
-package com.backcube.ui;
+package com.backcube.view;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Timer;
 
+import com.backcube.service.UserService;
 import com.vaadin.server.VaadinServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,6 +46,9 @@ public class SecuredUI extends UI {
 
     @Autowired
     ErrorView errorView;
+
+    @Autowired
+    UserService userService;
 
     @PostConstruct
     public void init() throws IOException {
@@ -112,6 +113,7 @@ public class SecuredUI extends UI {
         layout.setExpandRatio(viewContainer, 1.0f);
 
         AppView appView = new AppView();
+        appView.setUserService(userService);
         logger.info("Is Admin: "+((Boolean) SecurityUtils.hasRole("ROLE_ADMIN")).toString());
         if (!SecurityUtils.hasRole("ROLE_ADMIN")) {
             appView.adminButton.setVisible(false);

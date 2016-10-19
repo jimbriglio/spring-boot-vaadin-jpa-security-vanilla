@@ -1,16 +1,6 @@
-package com.backcube.ui;
+package com.backcube.view;
 
-import com.vaadin.annotations.Theme;
 import com.vaadin.navigator.Navigator;
-import com.vaadin.server.VaadinRequest;
-import com.vaadin.server.VaadinServlet;
-import com.vaadin.ui.UI;
-
-import javax.annotation.PostConstruct;
-import javax.servlet.ServletContext;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 
 /**
@@ -18,7 +8,7 @@ import java.nio.file.Paths;
  */
 //@SpringUI
 //@RestController
-//@RequestMapping("/ui")
+//@RequestMapping("/view")
 //@VaadinSessionScope
 //@Theme("mytheme")
 public class AppUI {

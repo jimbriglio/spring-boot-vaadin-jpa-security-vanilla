@@ -1,4 +1,4 @@
-package com.backcube.ui;
+package com.backcube.view;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

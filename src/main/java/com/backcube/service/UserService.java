@@ -1,6 +1,7 @@
 package com.backcube.service;
 
 import com.backcube.model.User;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -16,6 +17,6 @@ public interface UserService {
 
     Collection<User> getAllUsers();
 
-    //User create(User user);
+    User create(User user);
 
 }
