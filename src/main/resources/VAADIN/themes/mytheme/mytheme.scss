@@ -1,27 +1,12 @@
 
 @import "../valo/valo.scss";
-
-
+$v-overlay-background-color: black;
 
 @mixin mytheme {
   @include valo;
 
-  .blackColor {
-    background: black;
+  .v-label-appTitle {
+    font-weight: bolder;
+    font-size: 18px;
   }
-
-  .loginLabel {
-    font-style: bold;
-    font-size: 24px;
-  }
-
-  .loginBackground {
-      background: black;
-  }
-
-  .loginMainPanel {
-    border: 2px;
-    border-color: dimgray;
-  }
-
 }

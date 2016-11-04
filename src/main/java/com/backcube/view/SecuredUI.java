@@ -33,7 +33,8 @@ import javax.servlet.ServletContext;
 
 @SpringUI
 // No @Push annotation, we are going to enable it programmatically when the user logs on
-@Theme(ValoTheme.THEME_NAME) // Looks nicer
+@Theme("mytheme")
+//@Theme(ValoTheme.THEME_NAME) // Looks nicer
 public class SecuredUI extends UI {
 
     private static final Logger logger = LoggerFactory.getLogger(SecuredUI.class);
@@ -83,30 +84,7 @@ public class SecuredUI extends UI {
         layout.setSpacing(true);
         layout.setSizeFull();
         setContent(layout);
-//        HorizontalLayout buttons = new HorizontalLayout();
-//        buttons.setSpacing(true);
-//        layout.addComponent(buttons);
-//
-//        buttons.addComponent(new Button("Invoke user method", event -> {
-//            // This method should be accessible by both 'user' and 'admin'.
-//            Notification.show(backendService.userMethod());
-//        }));
-//        buttons.addComponent(new Button("Navigate to user view", event -> {
-//            getNavigator().navigateTo("");
-//        }));
-//        buttons.addComponent(new Button("Invoke admin method", event -> {
-//            // This method should be accessible by 'admin' only.
-//            Notification.show(backendService.adminMethod());
-//        }));
-//        buttons.addComponent(new Button("Navigate to admin view", event -> {
-//            getNavigator().navigateTo("admin");
-//        }));
-//        buttons.addComponent(new Button("Logout", event -> logout()));
-//        timeAndUser = new Label();
-//        timeAndUser.setSizeUndefined();
-//        buttons.addComponent(timeAndUser);
-//        buttons.setComponentAlignment(timeAndUser, Alignment.MIDDLE_LEFT);
-//
+
         Panel viewContainer = new Panel();
         viewContainer.setSizeFull();
         layout.addComponent(viewContainer);

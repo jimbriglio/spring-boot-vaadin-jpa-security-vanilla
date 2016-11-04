@@ -12,6 +12,7 @@ import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.TextField;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.vaadin.spring.events.EventBus;
@@ -29,15 +30,13 @@ public class UserForm extends AbstractForm<User> {
     @Autowired
     ApplicationContext applicationContext;
 
-    @Autowired
     EventBus.UIEventBus eventBus;
+    UserService repo;
 
-    public UserService repo;
-
-    public TextField email = new MTextField("Email");
-    public TextField firstName = new MTextField("First Name");
-    public TextField lastName = new MTextField("Last Name");
-    public TextField password = new MTextField("Password");
+    TextField email = new MTextField("Email");
+    TextField firstName = new MTextField("First Name");
+    TextField lastName = new MTextField("Last Name");
+    TextField password = new MTextField("Password");
     EnumSet<Role> roles = EnumSet.of(Role.ROLE_ADMIN, Role.ROLE_USER);
 
     public ComboBox role = new ComboBox("Role", roles);
@@ -45,12 +44,12 @@ public class UserForm extends AbstractForm<User> {
     public UserForm(UserService r) {
         setSizeUndefined();
         role.setValue(Role.ROLE_USER);
-        this.repo=r;
-        //this.eventBus = b;
+        this.repo = r;
+
 
         // On save & cancel, publish events that other parts of the UI can listen
         setSavedHandler(user -> {
-            user=new User(email.getValue(),firstName.getValue(),lastName.getValue(),password.getValue(),Role.valueOf(role.getValue().toString()));
+            user = new User(email.getValue(), firstName.getValue(), lastName.getValue(), password.getValue(), Role.valueOf(role.getValue().toString()));
             // persist changes
             repo.create(user);
             // send the event for other parts of the application
@@ -73,4 +72,5 @@ public class UserForm extends AbstractForm<User> {
                 getToolbar()
         ).withWidth("");
     }
+
 }

@@ -10,7 +10,6 @@ import org.vaadin.spring.events.annotation.EnableVaadinEventBus;
 @EnableVaadinEventBus
 public class HybridSecuritySampleApplication {
 
-
     public static void main(String[] args) {
         SpringApplication.run(HybridSecuritySampleApplication.class, args);
     }
